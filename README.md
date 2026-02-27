@@ -10,8 +10,6 @@ Install via the [skills.sh](https://skills.sh) CLI:
 npx skills add mentorcruise/skills
 ```
 
-This installs the skill and configures the MentorCruise search server automatically.
-
 ### Claude (web and desktop)
 
 You can also use this skill in [Claude](https://claude.ai) directly:
@@ -53,7 +51,7 @@ I need help transitioning from backend engineering to machine learning. Can you 
 
 **What it does:**
 
-- Searches the MentorCruise mentor database via Algolia
+- Searches the MentorCruise mentor database via a REST API
 - Clarifies ambiguous requests before searching (e.g., "PM" = Product or Project Management?)
 - Enriches results with web research for deeper mentor profiles
 - Presents up to 3 mentors with roles, fit explanations, and profile links
@@ -62,24 +60,7 @@ I need help transitioning from backend engineering to machine learning. Can you 
 
 ## How it works
 
-The skill connects to MentorCruise's Algolia-powered search index via an MCP server. When you describe what you're looking for, it translates your request into optimized search queries, filters results, and optionally enriches mentor profiles with web research to give you the best match.
-
-## MCP Server
-
-This plugin configures a remote MCP server for searching the MentorCruise mentor index. The server is read-only and requires no API keys. It uses a public search endpoint.
-
-The configuration is in `.mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "mentorcruise": {
-      "type": "url",
-      "url": "https://mcp.eu.algolia.com/..."
-    }
-  }
-}
-```
+The skill calls the MentorCruise search API to find mentors matching your request. No MCP servers, no API keys — just a simple REST endpoint. When you describe what you're looking for, it translates your request into optimized search queries with optional filters (location, language, skill, etc.), then enriches the top matches with web research to give you a personalized recommendation.
 
 ## Examples
 
@@ -88,12 +69,14 @@ The configuration is in `.mcp.json`:
 ```
 > I'm building a marketplace app and need a mentor who's scaled a two-sided platform
 
-**Shammi Raichura** - Operations Lead at Uber
-Scaled Uber's UK marketplace from day one with deep experience in GTM and
-two-sided platform dynamics. Strong match if your challenge is growing supply
-and demand simultaneously. Top-rated mentor. Rated 4.9 stars (32 reviews).
+**Marcus Chen** · VP of Product @ Deliveroo · 🇬🇧 United Kingdom
+⭐ Top-rated mentor. Rated 4.9 stars (32 reviews).
 
-https://mentorcruise.com/mentor/shammiraichura/
+Scaled a two-sided marketplace from early stage to IPO, so he's seen every
+growth challenge you're about to face. His background in supply-demand
+balancing and GTM strategy is a direct fit for what you're building.
+
+👉 [View profile of Marcus](https://mentorcruise.com/mentor/...)
 ```
 
 **Ambiguous request (clarifies first):**
@@ -102,7 +85,7 @@ https://mentorcruise.com/mentor/shammiraichura/
 > I need a PM mentor
 
 Are you looking for Product Management or Project Management mentoring?
-And what's your main goal - breaking into the field, leveling up, or interview prep?
+And what's your main goal — breaking into the field, leveling up, or interview prep?
 ```
 
 **Career transition:**
@@ -110,13 +93,14 @@ And what's your main goal - breaking into the field, leveling up, or interview p
 ```
 > I want to move from backend to ML engineering
 
-**Chris Hammerschmidt** - Director of AI
-Specializes in helping software engineers transition into ML, which is exactly
-your situation. PhD in machine learning with 10+ years spanning research,
-consulting, and engineering leadership. Top-rated mentor. Rated 5.0 stars
-(25 reviews).
+**Priya Sharma** · Senior ML Engineer @ Spotify · 🇸🇪 Sweden
+Rated 5.0 stars (25 reviews).
 
-https://mentorcruise.com/mentor/chrishammerschmidt/
+She made the exact same transition from backend to ML three years ago and now
+mentors engineers through it. Strong on Python, PyTorch, and system design for
+ML pipelines — plus she can help you build a portfolio that stands out.
+
+👉 [View profile of Priya](https://mentorcruise.com/mentor/...)
 ```
 
 ## License
