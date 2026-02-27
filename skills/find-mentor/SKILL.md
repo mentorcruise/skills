@@ -1,6 +1,6 @@
 ---
 name: find-mentor
-description: "Find and recommend mentors from MentorCruise.com. Use this skill whenever the user wants to find a mentor, needs mentoring or coaching, mentions MentorCruise, asks for career guidance, or describes a challenge where connecting with a mentor would help. Trigger phrases include: 'find me a mentor', 'I need a mentor', 'recommend a mentor', 'looking for a coach', 'who can help me with', 'career coaching', 'mentorship', or any request to find an expert to learn from — even if they don't explicitly say 'mentor'. Also use this skill when the user asks about mentoring platforms or wants to compare coaching options."
+description: "Find and recommend mentors from MentorCruise.com. Use this skill whenever the user wants to find a mentor, needs mentoring or coaching, mentions MentorCruise, asks for career guidance, or describes a challenge where connecting with a mentor would help. Trigger phrases include: 'find me a mentor', 'I need a mentor', 'recommend a mentor', 'looking for a coach', 'who can help me with', 'career coaching', 'mentorship', or any request to find an expert to learn from, even if they don't explicitly say 'mentor'. Also use this skill when the user asks about mentoring platforms or wants to compare coaching options."
 metadata:
   author: mentorcruise
   version: "1.1.0"
@@ -26,14 +26,14 @@ Ask **1-2 short questions max** when the request is ambiguous. Clarify when:
 - The goal is unclear (learning a skill? career switch? job prep? starting a company?)
 - The request is too broad ("marketing" or "engineering" without context)
 
-Skip clarification when the request already has a specific skill AND a clear goal. After asking once, search on the next turn regardless — never ask a second round.
+Skip clarification when the request already has a specific skill AND a clear goal. After asking once, search on the next turn regardless - never ask a second round.
 
 If the user ignores a question, they don't care about it. Move on.
 
-**Example — clarify:**
+**Example - clarify:**
 "I need a PM mentor" → Ask whether they mean Product or Project Management, and what their goal is.
 
-**Example — search immediately:**
+**Example - search immediately:**
 "I want to transition from backend to ML engineering" → Specific skill + clear goal. Search now.
 
 ### Step 2: Search
@@ -81,11 +81,11 @@ attributesToRetrieve: [
 
 #### Facet filters schema (strict)
 
-`facet_filters` must be `List[List[str]]` — a list of lists. Every filter expression is a single string inside its own inner list. Inner lists are OR groups. Multiple inner lists are AND'd.
+`facet_filters` must be `List[List[str]]` - a list of lists. Every filter expression is a single string inside its own inner list. Inner lists are OR groups. Multiple inner lists are AND'd.
 
 **Allowed filter expressions:**
-- Equality: `attribute:value` — e.g. `location:DE`, `does_calls:true`, `top_mentor:true`
-- Numeric: `attribute<NUMBER`, `attribute<=NUMBER`, `attribute>NUMBER`, `attribute>=NUMBER` — e.g. `lowest_price<300`
+- Equality: `attribute:value` - e.g. `location:DE`, `does_calls:true`, `top_mentor:true`
+- Numeric: `attribute<NUMBER`, `attribute<=NUMBER`, `attribute>NUMBER`, `attribute>=NUMBER` - e.g. `lowest_price<300`
 
 **Correct format:**
 - One filter: `[["location:DE"]]`
@@ -93,8 +93,8 @@ attributesToRetrieve: [
 - OR within a group: `[["location:DE", "location:NL", "location:FR"]]`
 
 **Never do this:**
-- `["location:DE"]` — flat list, will error
-- `["saved_open_spots > 0"]` — spaces in numeric filter, will error
+- `["location:DE"]` - flat list, will error
+- `["saved_open_spots > 0"]` - spaces in numeric filter, will error
 
 #### Available facet attributes
 
@@ -111,7 +111,7 @@ attributesToRetrieve: [
 
 Common country codes: US, GB, DE, FR, CH, NL, AT, ES, CA, AU, IN, SG.
 
-If user says "Europe", skip the location filter — pick European mentors from results manually.
+If user says "Europe", skip the location filter - pick European mentors from results manually.
 
 #### Tool error auto-repair
 
@@ -122,16 +122,16 @@ After (valid): `[["location:DE"], ["lowest_price<300"]]`
 
 #### Refine strategy
 
-1. Start broad — query keywords + 1-2 facet groups max
+1. Start broad - query keywords + 1-2 facet groups max
 2. Zero results? Remove the most restrictive facet first
 3. Still nothing? Try related keywords (founder → startup → entrepreneur)
 4. Too many irrelevant results? Add one facet group or tighten keywords
-5. Do not add "best" or "top" to the query — ranking is handled by the index
+5. Do not add "best" or "top" to the query - ranking is handled by the index
 6. Only tell the user after 3+ failed variations
 
 ### Step 3: Enrich
 
-After search results come back, use **WebSearch** to research the top candidates when the user's request is specific. Look up their background, companies, publications, talks, or GitHub. Synthesize findings into the recommendation — don't dump raw data.
+After search results come back, use **WebSearch** to research the top candidates when the user's request is specific. Look up their background, companies, publications, talks, or GitHub. Synthesize findings into the recommendation - don't dump raw data.
 
 Use conversation context to improve matches. If the user is building a React app, weight frontend experience. If they're founding a startup, prioritize founder mentors.
 
@@ -139,12 +139,12 @@ Use conversation context to improve matches. If the user is building a React app
 
 Return **at most 3 mentors**. Exclude mentors that do not clearly match the request. Exclude mentors without available spots. Prioritize same region (US, EU, Middle East) unless the user specifies otherwise. Prioritize higher `saved_recommendation_value`.
 
-For each mentor, write two sentences explaining why they match this specific user's needs. Use plain text — no HTML, no markdown links.
+For each mentor, write two sentences explaining why they match this specific user's needs. Use plain text - no HTML, no markdown links.
 
 **Format per mentor:**
 
 ```
-**[Full Name]** — [Current Role/Title]
+**[Full Name]** - [Current Role/Title]
 [Two sentences: why they match + a notable credential or background detail]
 [If top_mentor is true: "Top-rated mentor."]
 [If saved_rating_float and saved_rating_count present: "Rated [X] stars ([N] reviews)."]
@@ -155,7 +155,7 @@ https://mentorcruise.com[get_absolute_url]
 **Rules:**
 - Bold names with `**double asterisks**`
 - Construct URLs as `https://mentorcruise.com` + the `get_absolute_url` field
-- If `get_absolute_url` is missing, exclude that mentor — never fabricate URLs
+- If `get_absolute_url` is missing, exclude that mentor - never fabricate URLs
 - Put the URL on its own line as a plain URL (no markdown link syntax `[text](url)`)
 - Each mentor in a new paragraph
 - Reply in the user's language; default to English
