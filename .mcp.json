@@ -1,8 +1,3 @@
 {
-  "mcpServers": {
-    "mentorcruise": {
-      "type": "sse",
-      "url": "https://mcp.eu.algolia.com/1/i3QxjnA0CbM09LE2sTRKNkmySDZNTEo2tTQ2TDQ0SUs2SE21MDG0TDFLNrf2Tc0ryS8KKMpPy8xJjS8oyk-xNjQ3M7U0tDQ1NwQA/mcp"
-    }
-  }
+  "mcpServers": {}
 }
