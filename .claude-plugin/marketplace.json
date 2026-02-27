@@ -1,0 +1,22 @@
+{
+  "name": "mentorcruise-skills",
+  "owner": {
+    "name": "MentorCruise",
+    "email": "support@mentorcruise.com"
+  },
+  "metadata": {
+    "description": "Find mentors on MentorCruise.com directly from Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "mentorcruise",
+      "description": "Search and recommend mentors from MentorCruise.com using Algolia-powered search. Helps users find the right mentor for their career goals, skill development, or professional challenges.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/find-mentor"
+      ]
+    }
+  ]
+}

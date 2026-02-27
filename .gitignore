@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build artifacts
+*.skill
+dist/
+build/
+
+# Eval workspace (local testing only)
+mentor-search-workspace/
+*-workspace/
+
+# Logs
+*.log
+nohup.out
