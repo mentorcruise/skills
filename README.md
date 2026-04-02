@@ -35,7 +35,7 @@ This skill follows the open [Agent Skills](https://agentskills.io) standard and 
 
 ### find-mentor
 
-Search for and recommend mentors from MentorCruise.com. Works with natural language. Describe what you need and get matched with up to 3 mentors.
+Search for and recommend mentors from MentorCruise.com through a guided conversation. Describe what you need and get matched with up to 3 mentors, plus a goal statement you can use when reaching out.
 
 **Invoke directly:**
 
@@ -51,16 +51,17 @@ I need help transitioning from backend engineering to machine learning. Can you 
 
 **What it does:**
 
+- Guides you through 2-3 targeted questions to understand your needs
 - Searches the MentorCruise mentor database via a REST API
-- Clarifies ambiguous requests before searching (e.g., "PM" = Product or Project Management?)
 - Enriches results with web research for deeper mentor profiles
 - Presents up to 3 mentors with roles, fit explanations, and profile links
+- Generates a goal statement you can use when reaching out to mentors
 - Retries with alternative keywords when results are sparse
 - Tracks shown mentors to avoid repeats when you ask for more
 
 ## How it works
 
-The skill calls the MentorCruise search API to find mentors matching your request. No MCP servers, no API keys — just a simple REST endpoint. When you describe what you're looking for, it translates your request into optimized search queries with optional filters (location, language, skill, etc.), then enriches the top matches with web research to give you a personalized recommendation.
+The skill walks you through a short guided conversation to understand what you're looking for, then calls the MentorCruise search API to find the best matches. No MCP servers, no API keys - just a simple REST endpoint. It translates your needs into optimized search queries with optional filters (location, language, skill, etc.), enriches the top matches with web research, and gives you a personalized recommendation with a goal statement.
 
 ## Examples
 
@@ -69,23 +70,40 @@ The skill calls the MentorCruise search API to find mentors matching your reques
 ```
 > I'm building a marketplace app and need a mentor who's scaled a two-sided platform
 
-**Marcus Chen** · VP of Product @ Deliveroo · 🇬🇧 United Kingdom
-⭐ Top-rated mentor. Rated 4.9 stars (32 reviews).
+**Marcus Chen** · VP of Product @ Deliveroo · United Kingdom
+Top-rated mentor. Rated 4.9 stars (32 reviews).
 
 Scaled a two-sided marketplace from early stage to IPO, so he's seen every
 growth challenge you're about to face. His background in supply-demand
 balancing and GTM strategy is a direct fit for what you're building.
 
-👉 [View profile of Marcus](https://mentorcruise.com/mentor/...)
+[View profile of Marcus](https://mentorcruise.com/mentor/...)
+
+**Where I am now**: I'm building a marketplace app and looking to scale
+a two-sided platform.
+**What's holding me back**: I need guidance on balancing supply and demand,
+and navigating the growth challenges specific to marketplaces.
+**How a mentor can help**: I need someone who's scaled a marketplace before
+to help me avoid common pitfalls and accelerate growth.
 ```
 
-**Ambiguous request (clarifies first):**
+**Guided conversation (clarifies first):**
 
 ```
 > I need a PM mentor
 
-Are you looking for Product Management or Project Management mentoring?
-And what's your main goal — breaking into the field, leveling up, or interview prep?
+Sounds like you're looking for help in the product or project space.
+Are you focused on Product Management or Project Management?
+
+> Product management
+
+Got it. Are you looking to break into product management, or are you
+already a PM looking to level up?
+
+> I'm a junior PM looking to get to senior
+
+**Priya Sharma** · Senior PM @ Spotify · Sweden
+...
 ```
 
 **Career transition:**
@@ -93,14 +111,14 @@ And what's your main goal — breaking into the field, leveling up, or interview
 ```
 > I want to move from backend to ML engineering
 
-**Priya Sharma** · Senior ML Engineer @ Spotify · 🇸🇪 Sweden
+**Priya Sharma** · Senior ML Engineer @ Spotify · Sweden
 Rated 5.0 stars (25 reviews).
 
 She made the exact same transition from backend to ML three years ago and now
 mentors engineers through it. Strong on Python, PyTorch, and system design for
-ML pipelines — plus she can help you build a portfolio that stands out.
+ML pipelines, plus she can help you build a portfolio that stands out.
 
-👉 [View profile of Priya](https://mentorcruise.com/mentor/...)
+[View profile of Priya](https://mentorcruise.com/mentor/...)
 ```
 
 ## License

@@ -28,21 +28,28 @@ The skill lives at `skills/find-mentor/SKILL.md`. When editing:
 
 - Keep it under 500 lines. If it grows, move detailed reference material to `skills/find-mentor/references/`.
 - The `description` field in frontmatter is the primary trigger mechanism. It must include concrete trigger phrases.
-- The query compiler section (Step 2) controls how user requests become search keywords. Changes here affect search quality directly. Test thoroughly.
+- The query compiler section (Step 3) controls how user requests become search keywords. Changes here affect search quality directly. Test thoroughly.
 - Never include "mentor", "coach", or "coaching" in search queries - the API handles this.
 
 ## Testing
 
 To test the skill, run your agent CLI from the repo root and try these prompts:
 
-1. Ambiguous: "I need a PM mentor" - should clarify before searching
-2. Specific: "I'm building a React marketplace and need help scaling" - should search immediately
-3. Career transition: "I want to move from backend to ML engineering" - should search immediately with ML keywords
+1. **Ambiguous**: "I need a PM mentor" - should acknowledge in one sentence, then ask ONE question (product vs project management)
+2. **Specific**: "I'm building a React marketplace and need help scaling" - should search immediately without clarification
+3. **Career transition**: "I want to move from backend to ML engineering" - should search immediately with ML keywords
+4. **Vague**: "I need help with my career" - should acknowledge and ask ONE targeted question about their field or goal
 
 Verify that:
+- Only ONE question is asked per turn (never two or more)
+- At most 2-3 clarification turns happen before searching
 - Queries are 1-4 clean keywords, not the user's raw message
 - `curl` uses `--data-urlencode` for all parameters
-- At most 3 mentors returned
+- At least 2-3 mentors are shown (auto-broaden if fewer results)
+- At most 3 mentors returned per recommendation
 - All URLs come from the `get_absolute_url` field in API responses
+- A goal statement is included after presenting mentors
+- No em dashes appear in any output (use commas, periods, colons, or en dashes)
 - No internal field names exposed in output
 - No competitor platforms mentioned
+- Follow-up searches for "more" or "different" use different search parameters
